@@ -22,10 +22,22 @@ local Options = Fluent.Options
 
 
 
-    local Toggle = Tabs.General:AddToggle("MyToggle", {Title = "Toggle", Default = false })
+    local Toggle = Tabs.General:AddToggle("MyToggle", {Title = "Auto Farm", Default = false })
 
-    Toggle:OnChanged(function()
-        print("Toggle changed:", Options.MyToggle.Value)
+    Toggle:OnChanged(function(A)
+        _G.AutoFarm = A
+
+spawn(function()
+while wait(.1) do
+    pcall(function()
+if _G.AutoFarm then
+game:GetService("ReplicatedStorage").Events.Fight.ClickDamage:FireServer()
+
+                end
+        end)
+   end
+end)
+
     end)
 
     Options.MyToggle:SetValue(false)
